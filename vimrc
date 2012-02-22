@@ -88,6 +88,10 @@
 " => Julia's stuff
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call pathogen#infect() 
+let g:syntastic_mode_map = { 'mode': 'active',
+                               \ 'active_filetypes': ['ruby', 'php', 'html', 'rb', 'pl', 'js'],
+                               \ 'passive_filetypes': ['puppet'] }
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
