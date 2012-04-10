@@ -87,6 +87,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Julia's stuff
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set textwidth=80
 call pathogen#infect() 
 let g:syntastic_mode_map = { 'mode': 'active',
                                \ 'active_filetypes': ['ruby', 'php', 'html', 'rb', 'pl', 'js'],
@@ -166,8 +167,7 @@ syntax enable "Enable syntax hl
 if has("gui_running")
   set guioptions-=T
   set t_Co=256
-  set background=dark
-  colorscheme peaksea
+  set background=light
   set nonu
 else
   colorscheme zellner
