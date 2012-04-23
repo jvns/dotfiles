@@ -87,11 +87,13 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Julia's stuff
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set number
 set textwidth=80
 call pathogen#infect() 
-let g:syntastic_mode_map = { 'mode': 'active',
+let g:syntastic_mode_map = { 'mode': 'passive',
                                \ 'active_filetypes': ['ruby', 'php', 'html', 'rb', 'pl', 'js'],
                                \ 'passive_filetypes': ['puppet'] }
+let g:syntastic_quiet_warnings=1
 nnoremap ' `
 nnoremap ` '
 
@@ -160,10 +162,10 @@ let g:mapleader = ","
 nmap <leader>w :w!<cr>
 
 " Fast editing of the .vimrc
-map <leader>e :e! ~/.vim_runtime/vimrc<cr>
+map <leader>e :e! ~/.vimrc<cr>
 
 " When vimrc is edited, reload it
-autocmd! bufwritepost vimrc source ~/.vim_runtime/vimrc
+autocmd! bufwritepost vimrc source ~/.vimrc
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
