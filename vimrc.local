@@ -1,0 +1,11 @@
+set t_Co=256
+set nospell
+set scrolljump=0                " lines to scroll when cursor leaves screen
+colorscheme jellybeans
+" GUI Settings {
+    if has('gui_running')
+        set guifont=Neep\ 12
+    endif
+" }
+
+
