@@ -92,6 +92,51 @@ call pathogen#infect()
 let g:syntastic_mode_map = { 'mode': 'active',
                                \ 'active_filetypes': ['ruby', 'php', 'html', 'rb', 'pl', 'js'],
                                \ 'passive_filetypes': ['puppet'] }
+nnoremap ' `
+nnoremap ` '
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax enable "Enable syntax hl
+
+set background=dark
+colorscheme jellybeans
+set t_Co=256
+set encoding=utf8
+
+if has("gui_running")
+  set guioptions-=T
+  set nonu
+else
+  set nonu
+endif
+
+
+try
+    lang en_US
+catch
+endtry
+
+set ffs=unix,dos,mac "Default file types
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vimclojure
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Settings for VimClojure
+let vimclojureRoot = $HOME."/.vim/bundle/vimclojure"
+let vimclojure#HighlightBuiltins=1
+let vimclojure#HighlightContrib=1
+let vimclojure#DynamicHighlighting=1
+let vimclojure#ParenRainbow=1
+autocmd BufRead,BufNewFile *.cljs setlocal filetype=clojure
+let vimclojure#WantNailgun = 1
+let vimclojure#NailgunClient = vimclojureRoot."/lib/nailgun/ng"
+" Start vimclojure nailgun server (uses screen.vim to manage lifetime)
+nmap <silent> <Leader>sc :execute "ScreenShell java -cp \"" . classpath . sep . vimclojureRoot . "/lib/*" . "\" vimclojure.nailgun.NGServer 127.0.0.1" <cr>
+" Start a generic Clojure repl (uses screen.vim)
+nmap <silent> <Leader>sC :execute "ScreenShell java -cp \"" . classpath . "\" clojure.main" <cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -158,31 +203,6 @@ set novisualbell
 set t_vb=
 set tm=500
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax enable "Enable syntax hl
-
-if has("gui_running")
-  set guioptions-=T
-  set t_Co=256
-  set background=light
-  set nonu
-else
-  colorscheme zellner
-  set background=dark
-  
-  set nonu
-endif
-
-set encoding=utf8
-try
-    lang en_US
-catch
-endtry
-
-set ffs=unix,dos,mac "Default file types
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -318,9 +338,6 @@ map <leader>te :tabedit
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove 
 
-" When pressing <leader>cd switch to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>
-
 
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
@@ -366,8 +383,8 @@ function! CurDir()
 endfunction
 
 function! HasPaste()
+  return 'PASTE MODE  '
     if &paste
-        return 'PASTE MODE  '
     else
         return ''
     endif
@@ -404,15 +421,6 @@ autocmd BufWrite *.py :call DeleteTrailingWS()
 set guitablabel=%t
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Cope
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Do :help cope if you are unsure what cope is. It's super useful!
-map <leader>cc :botright cope<cr>
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
-
-
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin
 """"""""""""""""""""""""""""""
@@ -445,42 +453,10 @@ map <leader>u :TMiniBufExplorer<cr>
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-"Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-
-""""""""""""""""""""""""""""""
-" => Python section
-""""""""""""""""""""""""""""""
-let python_highlight_all = 1
-au FileType python syn keyword pythonDecorator True None False self
-
-au BufNewFile,BufRead *.jinja set syntax=htmljinja
-au BufNewFile,BufRead *.mako set ft=mako
-
-au FileType python inoremap <buffer> $r return 
-au FileType python inoremap <buffer> $i import 
-au FileType python inoremap <buffer> $p print 
-au FileType python inoremap <buffer> $f #--- PH ----------------------------------------------<esc>FP2xi
-au FileType python map <buffer> <leader>1 /class 
-au FileType python map <buffer> <leader>2 /def 
-au FileType python map <buffer> <leader>C ?class 
-au FileType python map <buffer> <leader>D ?def 
-
-
 """"""""""""""""""""""""""""""
 " => JavaScript section
 """""""""""""""""""""""""""""""
-au FileType javascript call JavaScriptFold()
+"au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
 au FileType javascript setl nocindent
 
@@ -507,15 +483,6 @@ endfunction
 """"""""""""""""""""""""""""""
 let MRU_Max_Entries = 400
 map <leader>f :MRU<CR>
-
-
-""""""""""""""""""""""""""""""
-" => Command-T
-""""""""""""""""""""""""""""""
-let g:CommandTMaxHeight = 15
-set wildignore+=*.o,*.obj,.git,*.pyc
-noremap <leader>j :CommandT<cr>
-noremap <leader>y :CommandTFlush<cr>
 
 
 """"""""""""""""""""""""""""""
