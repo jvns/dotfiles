@@ -1,5 +1,7 @@
 import XMonad
-import XMonad.Config.Desktop
+import XMonad.Config.Gnome
+import XMonad.Layout.Gaps
+
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
@@ -238,7 +240,8 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = tiled ||| Mirror tiled ||| Full
+myLayout = gaps [(U, 24)] $
+tiled ||| Mirror tiled ||| Full
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -273,6 +276,8 @@ myManageHook = composeAll
     , className =? "sun-awt-X11-XFramePeer"           --> doFloat
     , className =? "Deskbar-applet"     --> doFloat 
     , resource  =? "desktop_window"    --> doIgnore
+    , className =? "Unity-2d-panel"    --> doIgnore
+    , className =? "Unity-2d-launcher" --> doIgnore
     , resource  =? "sonata"          --> doF (W.shift "2") 
     , className  =? "pidgin"          --> doF (W.shift "8") 
     , resource =? "firefox-bin"  --> doF (W.shift "web")
@@ -318,7 +323,7 @@ myLogHook = dynamicLogWithPP myPP
 --
 main = do 
 --    xmproc <- spawnPipe "/usr/bin/xmobar /home/bork/.xmonad/xmobar"
-    xmonad $ desktopConfig {
+    xmonad $ gnomeConfig {
            -- simple stuff
              terminal           = myTerminal,
              focusFollowsMouse  = myFocusFollowsMouse,
