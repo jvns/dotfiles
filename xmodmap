@@ -1,0 +1,20 @@
+keycode 234 = XF86Back
+keycode 233 = XF86Forward
+keycode 164 = XF86AudioStop
+keycode 162 = 
+keycode 172 = XF86AudioPlay
+keycode 144 = 
+keycode 173 = XF86AudioPrev
+keycode 153 = 
+keycode 171 = XF86AudioNext
+keycode 160 = XF86AudioMute
+keycode 174 = XF86AudioLowerVolume
+keycode 176 = XF86AudioRaiseVolume
+
+
+remove Lock = Caps_Lock
+remove Control = Escape
+keysym Escape = Caps_Lock
+keysym Caps_Lock = Escape
+add Lock = Caps_Lock
+add Control = Escape
