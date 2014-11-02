@@ -13,3 +13,5 @@
 [user]
 	name = Julia Evans
 	email = julia@jvns.ca
+[core]
+	editor = vim
